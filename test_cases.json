@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "version": "1.0",
+    "total_cases": 10,
+    "synthetic_count": 5,
+    "real_world_count": 5,
+    "generation_rules": {
+      "synthetic": [
+        "Factual Q&A with a single unambiguous correct answer extractable by regex",
+        "Arithmetic or unit-conversion problems with exact numeric answers",
+        "Yes/No classification tasks with clear boolean ground truth",
+        "Short list generation where order does not matter (set equality scoring)",
+        "Named-entity extraction from a fixed context snippet"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "SYN-001",
+      "type": "synthetic",
+      "category": "factual_qa",
+      "group": "baseline",
+      "prompt": "What is the capital city of France?",
+      "expected": "Paris",
+      "scoring": "exact_ci",
+      "tags": ["geography", "single-answer"]
+    },
+    {
+      "id": "SYN-002",
+      "type": "synthetic",
+      "category": "arithmetic",
+      "group": "baseline",
+      "prompt": "Convert 72 degrees Fahrenheit to Celsius. Give only the numeric result rounded to one decimal place.",
+      "expected": "22.2",
+      "scoring": "regex",
+      "pattern": "22\\.2",
+      "tags": ["math", "unit-conversion"]
+    },
+    {
+      "id": "SYN-003",
+      "type": "synthetic",
+      "category": "classification",
+      "group": "baseline",
+      "prompt": "Is the following sentence grammatically correct? Answer only Yes or No.\n\nSentence: \"She go to school every day.\"",
+      "expected": "No",
+      "scoring": "exact_ci",
+      "tags": ["grammar", "binary"]
+    },
+    {
+      "id": "SYN-004",
+      "type": "synthetic",
+      "category": "extraction",
+      "group": "baseline",
+      "prompt": "From this sentence extract all proper nouns and list them comma-separated, lowercase: \"Marie Curie was born in Warsaw and later moved to Paris to study at the Sorbonne.\"",
+      "expected_set": ["marie curie", "warsaw", "paris", "sorbonne"],
+      "scoring": "set_match",
+      "tags": ["ner", "extraction"]
+    },
+    {
+      "id": "SYN-005",
+      "type": "synthetic",
+      "category": "yes_no",
+      "group": "baseline",
+      "prompt": "Is 127 a prime number? Answer only Yes or No.",
+      "expected": "Yes",
+      "scoring": "exact_ci",
+      "tags": ["math", "binary"]
+    },
+
+    {
+      "id": "RW-001",
+      "type": "real_world",
+      "category": "ambiguous_negation",
+      "group": "baseline",
+      "prompt": "Does Python support multiple inheritance? Answer only Yes or No.",
+      "expected": "Yes",
+      "scoring": "exact_ci",
+      "tags": ["programming", "binary", "edge-case"],
+      "note": "Models occasionally hedge or say 'it depends' on language-feature questions; we want a crisp Yes."
+    },
+    {
+      "id": "RW-002",
+      "type": "real_world",
+      "category": "numeric_precision",
+      "group": "baseline",
+      "prompt": "What is the output of this Python expression: round(2.675, 2)? Give only the number.",
+      "expected": "2.67",
+      "scoring": "regex",
+      "pattern": "2\\.67",
+      "tags": ["programming", "floating-point", "edge-case"],
+      "note": "Classic IEEE 754 gotcha — models often incorrectly say 2.68."
+    },
+    {
+      "id": "RW-003",
+      "type": "real_world",
+      "category": "instruction_following",
+      "group": "baseline",
+      "prompt": "List the three primary colors of light (RGB). Respond with a JSON array of lowercase strings, nothing else.",
+      "expected_set": ["red", "green", "blue"],
+      "scoring": "json_set",
+      "tags": ["format-compliance", "json", "edge-case"]
+    },
+    {
+      "id": "RW-004",
+      "type": "real_world",
+      "category": "semantic_consistency",
+      "group": "baseline",
+      "prompt": "In one sentence, explain what a REST API is.",
+      "expected_keywords": ["http", "stateless", "resource", "client", "server"],
+      "required_keyword_count": 2,
+      "scoring": "semantic_keywords",
+      "tags": ["semantic", "explanation", "edge-case"],
+      "note": "No exact answer; we check that at least 2 core concepts appear."
+    },
+    {
+      "id": "RW-005",
+      "type": "real_world",
+      "category": "date_reasoning",
+      "group": "baseline",
+      "prompt": "If today is Wednesday and the deadline is in 5 days, what day of the week is the deadline? Answer with only the day name.",
+      "expected": "Monday",
+      "scoring": "exact_ci",
+      "tags": ["reasoning", "date", "edge-case"]
+    },
+
+    {
+      "id": "INV-001a",
+      "type": "invariance",
+      "category": "paraphrase",
+      "group": "invariance",
+      "pair_id": "INV-001",
+      "variant": "canonical",
+      "prompt": "What is the capital city of France?",
+      "expected": "Paris",
+      "scoring": "exact_ci",
+      "tags": ["invariance", "paraphrase"]
+    },
+    {
+      "id": "INV-001b",
+      "type": "invariance",
+      "category": "paraphrase",
+      "group": "invariance",
+      "pair_id": "INV-001",
+      "variant": "paraphrase",
+      "prompt": "Which city serves as the capital of France?",
+      "expected": "Paris",
+      "scoring": "exact_ci",
+      "tags": ["invariance", "paraphrase"]
+    },
+    {
+      "id": "INV-001c",
+      "type": "invariance",
+      "category": "typo_noise",
+      "group": "invariance",
+      "pair_id": "INV-001",
+      "variant": "typo",
+      "prompt": "Waht is the captial ciyt of Frnace?",
+      "expected": "Paris",
+      "scoring": "exact_ci",
+      "tags": ["invariance", "typos", "noise"]
+    },
+
+    {
+      "id": "PERT-001a",
+      "type": "perturbation",
+      "category": "option_order",
+      "group": "perturbation",
+      "pair_id": "PERT-001",
+      "variant": "order_A",
+      "prompt": "Which of the following is a valid HTTP status code for 'Not Found'?\nA) 200\nB) 301\nC) 404\nD) 500\nAnswer with the letter only.",
+      "expected": "C",
+      "scoring": "exact_ci",
+      "tags": ["perturbation", "mcq", "option-order"]
+    },
+    {
+      "id": "PERT-001b",
+      "type": "perturbation",
+      "category": "option_order",
+      "group": "perturbation",
+      "pair_id": "PERT-001",
+      "variant": "order_B",
+      "prompt": "Which of the following is a valid HTTP status code for 'Not Found'?\nA) 404\nB) 200\nC) 500\nD) 301\nAnswer with the letter only.",
+      "expected": "A",
+      "scoring": "exact_ci",
+      "tags": ["perturbation", "mcq", "option-order"],
+      "note": "Same question, shuffled options. A brittle model anchors on position C and fails here."
+    },
+    {
+      "id": "PERT-001c",
+      "type": "perturbation",
+      "category": "distractor",
+      "group": "perturbation",
+      "pair_id": "PERT-001",
+      "variant": "distractor",
+      "prompt": "Which of the following is a valid HTTP status code for 'Not Found'? Note that some codes below are made up.\nA) 200\nB) 399\nC) 404\nD) 612\nAnswer with the letter only.",
+      "expected": "C",
+      "scoring": "exact_ci",
+      "tags": ["perturbation", "mcq", "distractor"],
+      "note": "Injected plausible-looking fake codes (399, 612) to test distractor resistance."
+    }
+  ]
+}

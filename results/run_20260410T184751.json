@@ -1,0 +1,376 @@
+{
+  "meta": {
+    "timestamp": "2026-04-10T18:47:51.113871+00:00",
+    "provider": "openai",
+    "model": "gpt-4o",
+    "temperature": 0.0,
+    "runs": 1,
+    "cases_total": 16
+  },
+  "results": [
+    {
+      "id": "SYN-001",
+      "type": "synthetic",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "factual_qa",
+      "tags": [
+        "geography",
+        "single-answer"
+      ],
+      "prompt": "What is the capital city of France?",
+      "response": "The capital city of France is Paris.",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": false,
+        "extracted": "The",
+        "expected": "Paris"
+      },
+      "pass": false
+    },
+    {
+      "id": "SYN-002",
+      "type": "synthetic",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "arithmetic",
+      "tags": [
+        "math",
+        "unit-conversion"
+      ],
+      "prompt": "Convert 72 degrees Fahrenheit to Celsius. Give only the numeric result rounded to one decimal place.",
+      "response": "22.2",
+      "scorer": "regex",
+      "score_detail": {
+        "pass": true,
+        "match": "22.2",
+        "pattern": "22\\.2"
+      },
+      "pass": true
+    },
+    {
+      "id": "SYN-003",
+      "type": "synthetic",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "classification",
+      "tags": [
+        "grammar",
+        "binary"
+      ],
+      "prompt": "Is the following sentence grammatically correct? Answer only Yes or No.\n\nSentence: \"She go to school every day.\"",
+      "response": "No.",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": true,
+        "extracted": "No",
+        "expected": "No"
+      },
+      "pass": true
+    },
+    {
+      "id": "SYN-004",
+      "type": "synthetic",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "extraction",
+      "tags": [
+        "ner",
+        "extraction"
+      ],
+      "prompt": "From this sentence extract all proper nouns and list them comma-separated, lowercase: \"Marie Curie was born in Warsaw an\u2026",
+      "response": "marie curie, warsaw, paris, sorbonne",
+      "scorer": "set_match",
+      "score_detail": {
+        "pass": true,
+        "found": [
+          "warsaw",
+          "sorbonne",
+          "marie curie",
+          "paris"
+        ],
+        "missing": []
+      },
+      "pass": true
+    },
+    {
+      "id": "SYN-005",
+      "type": "synthetic",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "yes_no",
+      "tags": [
+        "math",
+        "binary"
+      ],
+      "prompt": "Is 127 a prime number? Answer only Yes or No.",
+      "response": "No.",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": false,
+        "extracted": "No",
+        "expected": "Yes"
+      },
+      "pass": false
+    },
+    {
+      "id": "RW-001",
+      "type": "real_world",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "ambiguous_negation",
+      "tags": [
+        "programming",
+        "binary",
+        "edge-case"
+      ],
+      "prompt": "Does Python support multiple inheritance? Answer only Yes or No.",
+      "response": "Yes.",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": true,
+        "extracted": "Yes",
+        "expected": "Yes"
+      },
+      "pass": true
+    },
+    {
+      "id": "RW-002",
+      "type": "real_world",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "numeric_precision",
+      "tags": [
+        "programming",
+        "floating-point",
+        "edge-case"
+      ],
+      "prompt": "What is the output of this Python expression: round(2.675, 2)? Give only the number.",
+      "response": "2.67",
+      "scorer": "regex",
+      "score_detail": {
+        "pass": true,
+        "match": "2.67",
+        "pattern": "2\\.67"
+      },
+      "pass": true
+    },
+    {
+      "id": "RW-003",
+      "type": "real_world",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "instruction_following",
+      "tags": [
+        "format-compliance",
+        "json",
+        "edge-case"
+      ],
+      "prompt": "List the three primary colors of light (RGB). Respond with a JSON array of lowercase strings, nothing else.",
+      "response": "```json\n[\"red\", \"green\", \"blue\"]\n```",
+      "scorer": "json_set",
+      "score_detail": {
+        "pass": true,
+        "missing": [],
+        "extra": []
+      },
+      "pass": true
+    },
+    {
+      "id": "RW-004",
+      "type": "real_world",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "semantic_consistency",
+      "tags": [
+        "semantic",
+        "explanation",
+        "edge-case"
+      ],
+      "prompt": "In one sentence, explain what a REST API is.",
+      "response": "A REST API (Representational State Transfer Application Programming Interface) is a set of rules and conventions for building and interacting with web services, allowing clients to access and manipulate resources on a server using stateless HTTP requests.",
+      "scorer": "semantic_keywords",
+      "score_detail": {
+        "pass": true,
+        "found": [
+          "http",
+          "stateless",
+          "resource",
+          "client",
+          "server"
+        ],
+        "required": 2,
+        "total_keywords": [
+          "http",
+          "stateless",
+          "resource",
+          "client",
+          "server"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "id": "RW-005",
+      "type": "real_world",
+      "group": "baseline",
+      "pair_id": null,
+      "variant": null,
+      "category": "date_reasoning",
+      "tags": [
+        "reasoning",
+        "date",
+        "edge-case"
+      ],
+      "prompt": "If today is Wednesday and the deadline is in 5 days, what day of the week is the deadline? Answer with only the day name\u2026",
+      "response": "Monday",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": true,
+        "extracted": "Monday",
+        "expected": "Monday"
+      },
+      "pass": true
+    },
+    {
+      "id": "INV-001a",
+      "type": "invariance",
+      "group": "invariance",
+      "pair_id": "INV-001",
+      "variant": "canonical",
+      "category": "paraphrase",
+      "tags": [
+        "invariance",
+        "paraphrase"
+      ],
+      "prompt": "What is the capital city of France?",
+      "response": "The capital city of France is Paris.",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": false,
+        "extracted": "The",
+        "expected": "Paris"
+      },
+      "pass": false
+    },
+    {
+      "id": "INV-001b",
+      "type": "invariance",
+      "group": "invariance",
+      "pair_id": "INV-001",
+      "variant": "paraphrase",
+      "category": "paraphrase",
+      "tags": [
+        "invariance",
+        "paraphrase"
+      ],
+      "prompt": "Which city serves as the capital of France?",
+      "response": "The capital of France is Paris.",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": false,
+        "extracted": "The",
+        "expected": "Paris"
+      },
+      "pass": false
+    },
+    {
+      "id": "INV-001c",
+      "type": "invariance",
+      "group": "invariance",
+      "pair_id": "INV-001",
+      "variant": "typo",
+      "category": "typo_noise",
+      "tags": [
+        "invariance",
+        "typos",
+        "noise"
+      ],
+      "prompt": "Waht is the captial ciyt of Frnace?",
+      "response": "The capital city of France is Paris.",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": false,
+        "extracted": "The",
+        "expected": "Paris"
+      },
+      "pass": false
+    },
+    {
+      "id": "PERT-001a",
+      "type": "perturbation",
+      "group": "perturbation",
+      "pair_id": "PERT-001",
+      "variant": "order_A",
+      "category": "option_order",
+      "tags": [
+        "perturbation",
+        "mcq",
+        "option-order"
+      ],
+      "prompt": "Which of the following is a valid HTTP status code for 'Not Found'?\nA) 200\nB) 301\nC) 404\nD) 500\nAnswer with the letter o\u2026",
+      "response": "C",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": true,
+        "extracted": "C",
+        "expected": "C"
+      },
+      "pass": true
+    },
+    {
+      "id": "PERT-001b",
+      "type": "perturbation",
+      "group": "perturbation",
+      "pair_id": "PERT-001",
+      "variant": "order_B",
+      "category": "option_order",
+      "tags": [
+        "perturbation",
+        "mcq",
+        "option-order"
+      ],
+      "prompt": "Which of the following is a valid HTTP status code for 'Not Found'?\nA) 404\nB) 200\nC) 500\nD) 301\nAnswer with the letter o\u2026",
+      "response": "A) 404",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": false,
+        "extracted": "A)",
+        "expected": "A"
+      },
+      "pass": false
+    },
+    {
+      "id": "PERT-001c",
+      "type": "perturbation",
+      "group": "perturbation",
+      "pair_id": "PERT-001",
+      "variant": "distractor",
+      "category": "distractor",
+      "tags": [
+        "perturbation",
+        "mcq",
+        "distractor"
+      ],
+      "prompt": "Which of the following is a valid HTTP status code for 'Not Found'? Note that some codes below are made up.\nA) 200\nB) 39\u2026",
+      "response": "C",
+      "scorer": "exact_ci",
+      "score_detail": {
+        "pass": true,
+        "extracted": "C",
+        "expected": "C"
+      },
+      "pass": true
+    }
+  ],
+  "consistency": null
+}

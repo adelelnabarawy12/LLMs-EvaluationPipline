@@ -1,0 +1,8 @@
+# Core — pick whichever LLM provider you use
+anthropic>=0.25.0
+openai>=1.30.0          # optional; only needed for --provider openai
+
+# Optional: semantic scoring (keyword fallback used if not installed)
+sentence-transformers>=2.7.0
+
+# Standard-lib only otherwise — no further deps required
